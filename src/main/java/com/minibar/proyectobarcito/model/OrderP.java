@@ -30,17 +30,12 @@ public class OrderP {
     Long oId;
     LocalDate dateTime;
     Float oValue;
-    
-    /*
-    @ManyToMany(targetEntity = OrderP.class)
-    private Set Order_has_Product;*/
-    
+
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
-        //name = "Order_has_Product", 
+        name = "Order_has_Product",
         joinColumns = { @JoinColumn(name = "oId") }, 
         inverseJoinColumns = { @JoinColumn(name = "pId") }
     )
-    Set<Product> products = new HashSet<>();
-    
+    private Set<Product> products = new HashSet<>();
 }

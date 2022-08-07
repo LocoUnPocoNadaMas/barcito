@@ -32,5 +32,4 @@ public class Product {
     
     @ManyToMany(mappedBy = "products")
     private Set<OrderP> orders = new HashSet<>();
-    
 }
