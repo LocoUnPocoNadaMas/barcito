@@ -4,7 +4,8 @@
  */
 package com.minibar.proyectobarcito.service;
 
-import com.minibar.proyectobarcito.model.Product;
+import com.minibar.proyectobarcito.dto.ProductDTO;
+import com.minibar.proyectobarcito.model.ProductModel;
 import java.util.List;
 
 /**
@@ -13,14 +14,14 @@ import java.util.List;
  */
 public interface IProductService {
 
-    public void addProduct(Product product);
+    public void addProduct(ProductModel productModel);
     
-    public Product getProduct(Long id);
+    public ProductDTO getProduct(Long id);
     
-    public void updateProduct(Long id, String nName, String nDesc, Float nValue);
+    //public void updateProduct(Long id, String nName, String nDesc, Float nValue);
+    public void updateProduct(ProductModel productModel);
 
     public void deleteProduct(Long id);
 
-    public List<Product> getProducts();
-    
+    public List<ProductDTO> getProducts();
 }

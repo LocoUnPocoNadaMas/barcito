@@ -4,12 +4,13 @@
  */
 package com.minibar.proyectobarcito.service;
 
-import com.minibar.proyectobarcito.model.OrderP;
+import com.minibar.proyectobarcito.dto.OrderDTO;
+import com.minibar.proyectobarcito.model.ItemOrderModel;
+import com.minibar.proyectobarcito.model.OrderModel;
 import com.minibar.proyectobarcito.repository.OrderRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  *
@@ -23,20 +24,24 @@ public class OrderPService implements IOrderPService{
     public OrderRepository orderPRepository;
     
     @Override
-    public void addOrderP(OrderP orderP) {
-        orderPRepository.save(orderP);
+    public void addOrderP(OrderModel orderModel) {
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.getItemOrderModels();
+        ItemOrderModel itemOrderModel = new ItemOrderModel();
+        //itemOrderModel.g
+        orderPRepository.save(orderModel);
     }
 
     @Override
-    public OrderP getOrderP(Long id) {
+    public OrderModel getOrderP(Long id) {
         return orderPRepository.findById(id).orElse(null);
     }
 
     @Override
     public void updateOrderP(Long id, Float oValue) {
-        OrderP orderP = getOrderP(id);
-        orderP.setOValue(oValue);
-        orderPRepository.save(orderP);
+        OrderModel orderModel = getOrderP(id);
+        orderModel.setOValue(oValue);
+        orderPRepository.save(orderModel);
     }
 
     @Override
@@ -45,7 +50,7 @@ public class OrderPService implements IOrderPService{
     }
 
     @Override
-    public List<OrderP> getOrderPs() {
+    public List<OrderModel> getOrderPs() {
         return orderPRepository.findAll();
     }
     

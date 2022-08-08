@@ -4,7 +4,7 @@
  */
 package com.minibar.proyectobarcito.controller;
 
-import com.minibar.proyectobarcito.model.OrderP;
+import com.minibar.proyectobarcito.model.OrderModel;
 import com.minibar.proyectobarcito.service.IOrderPService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +29,17 @@ public class OrderController {
     private IOrderPService orderPService;
     
     @GetMapping("/todas")
-    public List<OrderP> showOrderPs(){
+    public List<OrderModel> showOrderPs(){
         return orderPService.getOrderPs();
     }
     
     @GetMapping("/agregar")
-    public void addProduct(@RequestBody OrderP orderP) {
-        orderPService.addOrderP(orderP);
+    public void addProduct(@RequestBody OrderModel orderModel) {
+        orderPService.addOrderP(orderModel);
     }
     
     @GetMapping("/buscar/{id}")
-    public OrderP getProduct(@PathVariable Long id) {
+    public OrderModel getProduct(@PathVariable Long id) {
         return orderPService.getOrderP(id);
     }
     

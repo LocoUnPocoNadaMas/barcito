@@ -4,7 +4,7 @@
  */
 package com.minibar.proyectobarcito.service;
 
-import com.minibar.proyectobarcito.model.OrderP;
+import com.minibar.proyectobarcito.model.OrderModel;
 import java.util.List;
 
 /**
@@ -13,13 +13,13 @@ import java.util.List;
  */
 public interface IOrderPService {
     
-    public void addOrderP(OrderP product);
+    public void addOrderP(OrderModel product);
     
-    public OrderP getOrderP(Long id);
+    public OrderModel getOrderP(Long id);
     
     public void updateOrderP(Long id, Float oValue);
     
     public void deleteOrderP(Long id);
 
-    public List<OrderP> getOrderPs();
+    public List<OrderModel> getOrderPs();
 }
