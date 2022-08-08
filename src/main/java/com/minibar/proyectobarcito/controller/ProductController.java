@@ -37,16 +37,17 @@ public class ProductController {
     
     @GetMapping("")
     @ResponseBody
-    public List<ProductDTO> showMenu(){
-        return productService.getProducts();
+    public ResponseEntity<List<ProductDTO>> showMenu(){
+
+        return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
     }/*
     public void showMenu(){
         productService.getProducts2();
     }*/
     
     @PostMapping("/agregar")
-    public ResponseEntity<Void> addProduct(@RequestBody @Validated ProductModel productModel) {
-        productService.addProduct(productModel);
+    public ResponseEntity<Void> addProduct(@RequestBody @Validated ProductDTO productDTO) {
+        productService.addProduct(productDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     

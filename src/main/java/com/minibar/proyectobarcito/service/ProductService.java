@@ -26,16 +26,21 @@ public class ProductService implements IProductService{
     public ProductRepository productRepository;
     
     @Override
-    public void addProduct(ProductModel productModel) {
-        productModel.setVisible(true);
-        productRepository.save(productModel);
+    public void addProduct(ProductDTO productDTO) {
+        ProductModel pM = new ProductModel();
+        pM.setName(productDTO.getName());
+        pM.setDescription(productDTO.getDescription());
+        pM.setPValue(productDTO.getPValue());
+        pM.setVisible(true);
+        productRepository.save(pM);
     }
     
     @Override
     public ProductDTO getProduct(Long id) {
          ProductDTO productDTO = new ProductDTO();
-         ProductModel rP= productRepository.findById(id).orElse(null);
-         if(rP != null) {
+         ProductModel rP;
+         if(productRepository.findById(id).orElse(null) != null) {
+             rP= productRepository.findById(id).orElse(null);
              productDTO.setName(rP.getName());
              productDTO.setDescription(rP.getDescription());
              productDTO.setPValue(rP.getPValue());
@@ -45,7 +50,7 @@ public class ProductService implements IProductService{
 
     @Override
     public void updateProduct(ProductModel uP) {
-        ProductModel productModel = productRepository.findById(uP.getId()).orElse(null);
+        ProductModel productModel = productRepository.findById(uP.getProdID()).orElse(null);
         if(productModel != null) {
             productModel.setName(uP.getName());
             productModel.setDescription(uP.getDescription());
@@ -65,11 +70,11 @@ public class ProductService implements IProductService{
 
     @Override
     public List<ProductDTO> getProducts() {
+
         List<ProductDTO> productDTOList = new ArrayList<>();
         ProductDTO productDTO;
-        for(ProductModel pM: productRepository.findAll())
-        {
-            if(pM.getVisible()) {
+        for (ProductModel pM : productRepository.findAll()) {
+            if (pM.getVisible() != null && pM.getVisible()==true) {
                 productDTO = new ProductDTO();
                 productDTO.setName(pM.getName());
                 productDTO.setDescription(pM.getDescription());

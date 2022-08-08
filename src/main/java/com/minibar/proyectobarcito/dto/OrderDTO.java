@@ -15,7 +15,7 @@ public class OrderDTO implements Serializable {
     private LocalDate dateTime;
     private Float oValue;
     private Boolean paid;
-    private List<ItemOrderModel> itemOrderModels;
+    //private List<ItemOrderModel> itemOrderModels;
 
     public OrderDTO() {
     }

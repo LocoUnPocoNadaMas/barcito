@@ -4,11 +4,12 @@
  */
 package com.minibar.proyectobarcito.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.Value;
+
+import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -21,23 +22,22 @@ import javax.validation.constraints.*;
 @Getter @Setter @Entity
 public class ProductModel {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    Long id;
-    @NotEmpty(message = "Required")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long prodID;
+    //@NotEmpty(message = "Required") // redundant, size it's better.
+    @NotNull
     @Size(max = 40)
-    String name;
+    private String name;
     @Size(max = 200)
-    String description;
-    @Positive(message = "")
-    Float pValue;
-    @Value("true")
-    Boolean visible;
-    
-    @OneToMany
-    @JoinColumn(
-            name = "prodID",
-            nullable = false
-    )
+    private String description;
+    @NotNull @Positive @Column(scale = 2) // se pasa por las bolas el scale......
+    private Float pValue;
+    //@Column(columnDefinition = "boolean default true")
+    @NotNull
+    private Boolean visible;
 
-    private Set<ItemOrderModel> itemOrderModels = new HashSet<>();
+    public ProductModel() {
+    }
+
+
 }

@@ -5,9 +5,11 @@
 package com.minibar.proyectobarcito.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import lombok.Getter;
@@ -23,20 +25,18 @@ import org.springframework.data.annotation.CreatedDate;
 public class OrderModel {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
-    //@Temporal(value = TemporalType.DATE)
-    LocalDate dateTime;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderID;
+    //private LocalDate addedOn = LocalDate.now();
+    //@Column(updatable = false) // secure
+    @NotNull
+    private LocalDate dateTime;
+    @NotNull
     @Positive
-    Float oValue;
-    @Value("false")
-    Boolean paid;
+    private Float oValue;
+    // @Value("false") esta porquería no funciona, se setea desde el constructor?
+    private Boolean paid;
 
-    @OneToMany
-    @JoinColumn(
-            name = "orderID",
-            nullable = false
-    )
-
-    private Set<ItemOrderModel> itemOrderModels = new HashSet<>();
+    public OrderModel() {
+    }
 }

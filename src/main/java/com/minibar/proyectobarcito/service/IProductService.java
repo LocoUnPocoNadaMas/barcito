@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IProductService {
 
-    public void addProduct(ProductModel productModel);
+    public void addProduct(ProductDTO productDTO);
     
     public ProductDTO getProduct(Long id);
     
