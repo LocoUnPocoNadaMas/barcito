@@ -13,7 +13,7 @@ public class OrderDTO implements Serializable {
 
     private Long id;
     private LocalDate dateTime;
-    private Float oValue;
+    private Double oValue;
     private Boolean paid;
     //private List<ItemOrderModel> itemOrderModels;
 

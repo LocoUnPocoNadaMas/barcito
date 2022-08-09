@@ -44,25 +44,28 @@ Client: String code
 ### Entity Relationship Diagram
 ```mermaid
 erDiagram
-CLIENT ||--o{ ORDER : request
-ORDER ||--|{ LINE-ITEM : contains
-LINE-ITEM }|--|| PRODUCT : use
-LINE-ITEM ||--O| DETAIL : add
+CLIENT ||--|| ORDER : request
+CLIENT ||--|{ LINE-ITEM : add
+LINE-ITEM }|--|| ORDER : contains
+LINE-ITEM }|--|| PRODUCT : is
+LINE-ITEM ||--O| DETAIL : has
 ```
 ## Class Diagram
 ```mermaid
 classDiagram
-ItemOrder "1..*" *-- "1" Order
-ItemOrder "1..*" *-- "1" Product
-Order "1" *-- "1" Client
 ItemOrder "1" o-- "0..1" Detail
+ItemOrder "1..*" *-- "1" Client
+ItemOrder "1..*" *-- "1" Product
+ItemOrder "1..*" *-- "1" Order 
+Order "1" *-- "1" Client
+
 Product <-- ProductDTO
 Order <-- OrderDTO
+
 class ItemOrder{
 -Long itemID
 -Product prod
 -Order order
--Detail detail
 ItemOrder(prod, order)
 }
 class Order{
@@ -80,7 +83,7 @@ class Product {
 -Boolean visible
 }
 class Detail {
--Long detailID
+-Long itemID
 -String detail
 }
 class ProductDTO {

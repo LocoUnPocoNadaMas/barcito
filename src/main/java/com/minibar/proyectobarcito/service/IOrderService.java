@@ -19,7 +19,7 @@ public interface IOrderService {
      * En un futuro será Modularizado , Modularizar
      * @param id
      */
-    public void addOrder(Long id);
+    public void addNewOrder(Long id);
 
     /**
      * Busca informacíon sobre una orden en particular

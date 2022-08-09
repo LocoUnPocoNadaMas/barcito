@@ -13,7 +13,7 @@ public class ProductDTO {
     //@Size(max = 200)
     private String description;
     @Positive
-    private Float pValue;
+    private Double pValue;
 
     public ProductDTO() {
     }

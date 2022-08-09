@@ -8,7 +8,6 @@ import com.minibar.proyectobarcito.repository.ItemOrderRepository;
 import com.minibar.proyectobarcito.repository.OrderRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,36 +27,35 @@ public class OrderService implements IOrderService {
     public OrderRepository orderPRepository;
 
     @Autowired
-    public ItemOrderRepository itemOrderRepository;
+    private ItemOrderRepository itemOrderRepository;
     @Autowired
-    ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Override
-    public void addOrder(Long id) {
-        System.out.println("uwu u");
-        OrderModel oM = new OrderModel();
-        oM.setOrderID(id);
-        oM.setDateTime(LocalDate.now());
-        oM.setOValue(1550.00f);
-        oM.setPaid(true);
-        orderPRepository.save(oM);
+    public void addNewOrder(Long id) {
+        //itemOrderRepository.findByAddedToOrderAndClientID(false, id);
+        List<ItemOrderModel> createdOrder = new ArrayList<>();
+        Double value = 0.0;
+        System.out.println("actualmente: "+value);
+        OrderModel orderModel = new OrderModel();
+        for (ItemOrderModel iOM : itemOrderRepository.findAll()) {
+            //System.out.println(iOM.getProductModel().getName()+"1 ");
+            if (!(iOM.getAddedToOrder())) {
+                //System.out.println(iOM.getProductModel().getName()+"2 ");
+                createdOrder.add(iOM);
+                iOM.setAddedToOrder(true);
+                //itemOrderRepository.save(iOM);
+            }
+        }
+        itemOrderRepository.saveAll(createdOrder);
 
-        ProductModel pM = new ProductModel();
-        pM=productRepository.findById(id).orElse(null);
-        //ItemOrderModel itemOrderModel = new ItemOrderModel(oM, pM);
-        //itemOrderRepository.save(itemOrderModel);
-
-
-
-        /*
-        OrderModel oM = new OrderModel();
-        ProductModel pM = new ProductModel();
-        ItemOrderModel itemOrderModel;
-        if(productRepository.findById(id).orElse(null) != null) {
-            pM = productRepository.findById(id).orElse(null);
-            itemOrderModel = new ItemOrderModel(oM, pM);
-            itemOrderRepository.save(itemOrderModel);
-        }*/
+        for (ItemOrderModel iOM : createdOrder) {
+            value += iOM.getProductModel().getPValue();
+        }
+        orderModel.setDateTime(LocalDate.now());
+        orderModel.setOValue(value);
+        orderModel.setPaid(false);
+        orderPRepository.save(orderModel);
     }
 
     @Override
@@ -77,7 +75,9 @@ public class OrderService implements IOrderService {
 
     @Override
     public List<OrderDTO> getOrders() {
-
+        return  null;
+    }
+/*
         List<OrderDTO> orderDTOList = new ArrayList<>();
         OrderDTO orderDTO;
         for (OrderModel orderModel : orderPRepository.findAll()) {
@@ -91,7 +91,7 @@ public class OrderService implements IOrderService {
             }
         }
         return orderDTOList;
-    }
+    }*/
     /*
     @Override
     public void addOrderP(OrderModel orderModel) {

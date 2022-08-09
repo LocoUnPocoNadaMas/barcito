@@ -13,6 +13,7 @@ public class ItemOrderModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemID;
+    private Boolean addedToOrder;
     /*
     @ManyToOne
     @JoinColumn(

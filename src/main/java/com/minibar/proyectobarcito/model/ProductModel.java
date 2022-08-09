@@ -31,7 +31,7 @@ public class ProductModel {
     @Size(max = 200)
     private String description;
     @NotNull @Positive @Column(scale = 2) // se pasa por las bolas el scale......
-    private Float pValue;
+    private Double pValue;
     //@Column(columnDefinition = "boolean default true")
     @NotNull
     private Boolean visible;

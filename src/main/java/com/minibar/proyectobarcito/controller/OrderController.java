@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
     
     @Autowired
-    private IOrderService orderService;
+    public IOrderService orderService;
     
     @GetMapping("/todas")
     public List<OrderDTO> showOrders(){
@@ -34,10 +34,7 @@ public class OrderController {
     
     @PostMapping("/agregar/{id}")
     public void addOrder(@PathVariable Long id) {
-
-        System.out.println("uwu");
-
-        orderService.addOrder(id);
+        orderService.addNewOrder(id);
     }
     
     @GetMapping("/buscar/{id}")

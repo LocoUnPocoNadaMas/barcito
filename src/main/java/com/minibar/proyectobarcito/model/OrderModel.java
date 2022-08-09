@@ -33,7 +33,7 @@ public class OrderModel {
     private LocalDate dateTime;
     @NotNull
     @Positive
-    private Float oValue;
+    private Double oValue;
     // @Value("false") esta porquería no funciona, se setea desde el constructor?
     private Boolean paid;
 

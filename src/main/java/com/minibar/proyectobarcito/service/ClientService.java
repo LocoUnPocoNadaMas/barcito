@@ -14,13 +14,13 @@ import org.springframework.stereotype.Service;
 public class ClientService implements IClientService{
 
     @Autowired
-    ClienteRepository clienteRepository;
+    public ClienteRepository clienteRepository;
 
     @Autowired
-    ProductRepository productRepository;
+    public ProductRepository productRepository;
 
     @Autowired
-    ItemOrderRepository itemOrderRepository;
+    public ItemOrderRepository itemOrderRepository;
 
     @Override
     public boolean addNewItem(ClientDTO clientDTO) {
@@ -30,6 +30,7 @@ public class ClientService implements IClientService{
         pM = productRepository.findById(clientDTO.getProd_id()).orElse(null);
         if (pM != null && cM != null) {
             ItemOrderModel iOM = new ItemOrderModel(pM, cM);
+            iOM.setAddedToOrder(false);
             itemOrderRepository.save(iOM);
             return true;
         }

@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     
     @Autowired
-    IProductService productService;
+    public IProductService productService;
     
     @GetMapping("")
     @ResponseBody
