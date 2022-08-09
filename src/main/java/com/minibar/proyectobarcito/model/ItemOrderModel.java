@@ -44,6 +44,5 @@ public class ItemOrderModel {
     public ItemOrderModel(OrderModel orderModel, ProductModel productModel) {
         this.orderModel = orderModel;
         this.productModel = productModel;
-
     }
 }

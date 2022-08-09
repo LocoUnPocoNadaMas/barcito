@@ -42,6 +42,12 @@ public class OrderService implements IOrderService {
         oM.setPaid(true);
         orderPRepository.save(oM);
 
+        ProductModel pM = new ProductModel();
+        pM=productRepository.findById(id).orElse(null);
+        ItemOrderModel itemOrderModel = new ItemOrderModel(oM, pM);
+        itemOrderRepository.save(itemOrderModel);
+
+
 
         /*
         OrderModel oM = new OrderModel();
