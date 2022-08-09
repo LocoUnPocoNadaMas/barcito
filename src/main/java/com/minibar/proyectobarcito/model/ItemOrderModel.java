@@ -13,13 +13,14 @@ public class ItemOrderModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemID;
+    /*
     @ManyToOne
     @JoinColumn(
             name = "orderID",
             nullable = false, updatable = false // -nullable
     )
     @NotNull
-    private OrderModel orderModel;
+    private OrderModel orderModel;*/
     @ManyToOne
     @JoinColumn(
             name = "prodID",
@@ -27,6 +28,14 @@ public class ItemOrderModel {
     )
     @NotNull
     private ProductModel productModel;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "clientID",
+            nullable = false, updatable = false // -nullable
+    )
+    @NotNull
+    private ClientModel clientModel;
 
     @OneToOne(mappedBy = "itemOrderModel", cascade = CascadeType.ALL)
     //@OneToOne(cascade = CascadeType.ALL)
@@ -41,8 +50,8 @@ public class ItemOrderModel {
     public ItemOrderModel() {
     }
 
-    public ItemOrderModel(OrderModel orderModel, ProductModel productModel) {
-        this.orderModel = orderModel;
+    public ItemOrderModel(ProductModel productModel, ClientModel clientModel) {
         this.productModel = productModel;
+        this.clientModel = clientModel;
     }
 }

@@ -27,10 +27,12 @@ z --> g
 ### Domain Model
 ```mermaid
 classDiagram
-ItemOrder *-- Order : has
+ItemOrder *-- Client : add
 ItemOrder *-- Product : in
-Order *-- Client : start
+ItemOrder -- Order
+Order *-- Client : need
 ItemOrder o-- Detail : add
+
 Order: DateTime dt
 Order: Float value
 Product: String name
