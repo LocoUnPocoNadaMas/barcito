@@ -16,12 +16,16 @@ public interface IProductService {
 
     public void addProduct(ProductDTO productDTO);
     
-    public ProductDTO getProduct(Long id);
+    public ProductDTO findProduct(Long id);
+
+    public List<ProductDTO> getProducts();
+
+    public List<ProductModel> getAllProducts();
     
     //public void updateProduct(Long id, String nName, String nDesc, Float nValue);
     public void updateProduct(ProductModel productModel);
 
     public void deleteProduct(Long id);
 
-    public List<ProductDTO> getProducts();
+
 }

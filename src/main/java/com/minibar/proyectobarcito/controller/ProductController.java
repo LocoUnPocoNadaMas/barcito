@@ -40,10 +40,14 @@ public class ProductController {
     public ResponseEntity<List<ProductDTO>> showMenu(){
 
         return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
-    }/*
-    public void showMenu(){
-        productService.getProducts2();
-    }*/
+    }
+
+    @GetMapping("")
+    @ResponseBody
+    public ResponseEntity<List<ProductDTO>> showAll(){
+
+        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+    }
     
     @PostMapping("/agregar")
     public ResponseEntity<Void> addProduct(@RequestBody @Validated ProductDTO productDTO) {
@@ -56,16 +60,6 @@ public class ProductController {
         // Responde con el objeto o un error...
         return new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
     }
-
-    /*
-    @PutMapping("/editar/{id}")
-    public void updateProduct(@PathVariable Long id,
-            @RequestParam ("name") String nName,
-            @RequestParam ("description") String nDesc,
-            @RequestParam ("pvalue") Float nValue) {
-        
-        //productService.updateProduct(id, nName, nDesc, nValue);
-    }*/
 
     @PutMapping("/editar/{id}")
     public ResponseEntity<Void> updateProduct(@RequestBody @Validated ProductModel productModel) {

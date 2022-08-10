@@ -14,19 +14,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author Administrador
- */
 
 @Service
 public class ProductService implements IProductService{
 
     @Autowired
     public ProductRepository productRepository;
-    
+
     @Override
     public void addProduct(ProductDTO productDTO) {
+
         ProductModel pM = new ProductModel();
         pM.setName(productDTO.getName());
         pM.setDescription(productDTO.getDescription());
@@ -34,40 +31,19 @@ public class ProductService implements IProductService{
         pM.setVisible(true);
         productRepository.save(pM);
     }
-    
-    @Override
-    public ProductDTO getProduct(Long id) {
-         ProductDTO productDTO = new ProductDTO();
-         ProductModel rP;
-         if(productRepository.findById(id).orElse(null) != null) {
-             rP= productRepository.findById(id).orElse(null);
-             productDTO.setName(rP.getName());
-             productDTO.setDescription(rP.getDescription());
-             productDTO.setPValue(rP.getPValue());
-         }
-         return productDTO;
-    }
 
     @Override
-    public void updateProduct(ProductModel uP) {
-        ProductModel productModel = productRepository.findById(uP.getProdID()).orElse(null);
-        if(productModel != null) {
-            productModel.setName(uP.getName());
-            productModel.setDescription(uP.getDescription());
-            productModel.setPValue(uP.getPValue());
-            productModel.setVisible(uP.getVisible());
-            productRepository.save(productModel);
+    public ProductDTO findProduct(Long id) {
+
+        ProductDTO productDTO = new ProductDTO();
+        ProductModel rP;
+        if (productRepository.findById(id).orElse(null) != null) {
+            rP = productRepository.findById(id).orElse(null);
+            productDTO.setName(rP.getName());
+            productDTO.setDescription(rP.getDescription());
+            productDTO.setPValue(rP.getPValue());
         }
-    }
-    
-    @Override
-    public void deleteProduct(Long id) {
-        ProductModel dP = productRepository.findById(id).orElse(null);
-        //productRepository.deleteById(id);
-        if(dP != null) {
-            dP.setVisible(false);
-            productRepository.save(dP);
-        }
+        return productDTO;
     }
 
     @Override
@@ -75,15 +51,44 @@ public class ProductService implements IProductService{
 
         List<ProductDTO> productDTOList = new ArrayList<>();
         ProductDTO productDTO;
-        for (ProductModel pM : productRepository.findAll()) {
-            if (pM.getVisible() != null && pM.getVisible()==true) {
-                productDTO = new ProductDTO();
-                productDTO.setName(pM.getName());
-                productDTO.setDescription(pM.getDescription());
-                productDTO.setPValue(pM.getPValue());
-                productDTOList.add(productDTO);
-            }
+        for (ProductModel pM : productRepository.findByVisibleTrue()) {
+
+            productDTO = new ProductDTO();
+            productDTO.setName(pM.getName());
+            productDTO.setDescription(pM.getDescription());
+            productDTO.setPValue(pM.getPValue());
+            productDTOList.add(productDTO);
         }
         return productDTOList;
+    }
+
+    @Override
+    public List<ProductModel> getAllProducts() {
+
+        return productRepository.findAll();
+    }
+
+    @Override
+    public void updateProduct(ProductModel uP) {
+
+        ProductModel productModel = productRepository.findById(uP.getProdID()).orElse(null);
+        if (productModel != null) {
+            productModel.setName(uP.getName());
+            productModel.setDescription(uP.getDescription());
+            productModel.setPValue(uP.getPValue());
+            productModel.setVisible(uP.getVisible());
+            productRepository.save(productModel);
+        }
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+
+        ProductModel dP = productRepository.findById(id).orElse(null);
+        //productRepository.deleteById(id);
+        if (dP != null) {
+            dP.setVisible(false);
+            productRepository.save(dP);
+        }
     }
 }
