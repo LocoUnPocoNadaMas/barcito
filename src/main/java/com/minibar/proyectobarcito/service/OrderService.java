@@ -7,10 +7,10 @@ import com.minibar.proyectobarcito.repository.ItemOrderRepository;
 import com.minibar.proyectobarcito.repository.OrderRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.minibar.proyectobarcito.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,29 +25,26 @@ public class OrderService implements IOrderService {
     public OrderRepository orderRepository;
     @Autowired
     public ItemOrderRepository itemOrderRepository;
-    @Autowired
-    public ProductRepository productRepository;
 
     @Override
     public boolean createNextOrder() {
 
         Long ClientIdOfFirstItem = 0L;
-        ItemOrderModel firstItem = new ItemOrderModel();
+        ItemOrderModel firstItem = itemOrderRepository.findFirstByAddedToOrderFalse();
         OrderModel newOrder = new OrderModel();
+
         Double value = 0.0;
         List <ItemOrderModel> itemOrderModelList = new ArrayList<>();
         // get first item waiting be added
-        if (itemOrderRepository.findFirstByAddedToOrderFalse() != null) {
-
-            firstItem = itemOrderRepository.findFirstByAddedToOrderFalse();
+        if (firstItem != null) {
+            // getting id
             ClientIdOfFirstItem = firstItem.getClientModel().getClientID();
+            // create a list of items, using the clientid
+            // of the first item, where addedtoorder=false
+            itemOrderModelList = itemOrderRepository.findByClientModel_ClientIDAndAddedToOrderFalse(ClientIdOfFirstItem);
 
-            if(!(itemOrderRepository.findByClientModel_ClientIDAndAddedToOrderFalse(ClientIdOfFirstItem).isEmpty())) {
+            if(!(itemOrderModelList.isEmpty())) {
 
-                itemOrderModelList = itemOrderRepository.findByClientModel_ClientIDAndAddedToOrderFalse(ClientIdOfFirstItem);
-
-                // create a list of items, using the clientid
-                // of the first item, where addedtoorder=false
                 for (ItemOrderModel itemOrderModel : itemOrderModelList) {
                     value += itemOrderModel.getProductModel().getPValue();
                     itemOrderModel.setAddedToOrder(true);
@@ -56,7 +53,7 @@ public class OrderService implements IOrderService {
 
                 if (value > 0.0) {
 
-                    newOrder.setDateTime(LocalDate.now());
+                    newOrder.setDateTime(LocalDateTime.now());
                     newOrder.setOValue(value);
                     newOrder.setPaid(false);
                     newOrder.setClientModel(firstItem.getClientModel());
@@ -69,17 +66,19 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public List<OrderDTO> getUnattendedOrders() {
+    public List<OrderModel> getUnattendedOrders() {
         return null;
     }
 
     @Override
-    public List<ItemOrderModel> getUnpaidOrders() {
-        return null;
+    public List<OrderModel> getUnpaidOrders() {
+
+        return orderRepository.findByPaidFalse();
     }
 
     @Override
-    public OrderModel getOrder(Long id) {
+    public OrderModel findOrder(Long id) {
+        //return orderRepository.findById(id).orElse(null);
         return null;
     }
 

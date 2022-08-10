@@ -6,21 +6,13 @@ package com.minibar.proyectobarcito.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.annotation.CreatedDate;
 
-/**
- *
- * @author Administrador
- */
+
 @Setter @Getter @Entity
 public class OrderModel {
     
@@ -30,7 +22,7 @@ public class OrderModel {
     //private LocalDate addedOn = LocalDate.now();
     //@Column(updatable = false) // secure
     @NotNull
-    private LocalDate dateTime;
+    private LocalDateTime dateTime;
     @NotNull
     @Positive
     private Double oValue;

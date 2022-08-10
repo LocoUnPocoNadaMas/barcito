@@ -18,7 +18,6 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<OrderModel, Long>{
 
-    public List<OrderModel> findByPaidFalse(); // Falta id del cliente
-
     public List<OrderModel> findByPaidFalseAndClientModel_ClientID(Long id);
+    public List<OrderModel> findByPaidFalse();
 }

@@ -26,21 +26,21 @@ public interface IOrderService {
      * atendieron
      * @return list of next orders
      */
-    public List<OrderDTO> getUnattendedOrders();
+    public List<OrderModel> getUnattendedOrders();
 
     /**
      * Podría servir para listar las ordenes que
      * no se cobraron
      * @return OrderList
      */
-    public List<ItemOrderModel> getUnpaidOrders();
+    public List<OrderModel> getUnpaidOrders();
 
     /**
      * Busca informacíón sobre una orden en particular
      * @param id
      * @return
      */
-    public OrderModel getOrder(Long id);
+    public OrderModel findOrder(Long id);
 
     /**
      * Este método actualiza las ordenes, SIN RESOLVER AÚN
