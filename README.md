@@ -32,7 +32,8 @@ ItemOrder *-- Product : in
 ItemOrder -- Order
 Order *-- Client : need
 ItemOrder o-- Detail : add
-
+Waiter -- Order : get
+Client -- Waiter : paid
 Order: DateTime dt
 Order: Float value
 Product: String name
@@ -90,5 +91,9 @@ class ProductDTO {
 -String name
 -String desc
 -Float value
+}
+class Client {
+-Long id
+-String code
 }
 ```

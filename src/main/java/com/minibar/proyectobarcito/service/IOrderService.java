@@ -5,6 +5,7 @@
 package com.minibar.proyectobarcito.service;
 
 import com.minibar.proyectobarcito.dto.OrderDTO;
+import com.minibar.proyectobarcito.model.ItemOrderModel;
 import com.minibar.proyectobarcito.model.OrderModel;
 import java.util.List;
 
@@ -15,14 +16,27 @@ import java.util.List;
 public interface IOrderService {
 
     /**
-     * Método para que el cliente agregue la orden
-     * En un futuro será Modularizado , Modularizar
-     * @param id
+     * Método para crear la próxima orden a atender
+     * @return bool control
      */
-    public void addNewOrder(Long id);
+    public boolean createNextOrder();
 
     /**
-     * Busca informacíon sobre una orden en particular
+     * Este método devuelve las ordenes que no se
+     * atendieron
+     * @return list of next orders
+     */
+    public List<OrderDTO> getUnattendedOrders();
+
+    /**
+     * Podría servir para listar las ordenes que
+     * no se cobraron
+     * @return OrderList
+     */
+    public List<ItemOrderModel> getUnpaidOrders();
+
+    /**
+     * Busca informacíón sobre una orden en particular
      * @param id
      * @return
      */
@@ -41,9 +55,5 @@ public interface IOrderService {
      */
     public void deleteOrder(Long id);
 
-    /**
-     * Este método devuelve las ordenes que no se atendieron
-     * @return list of next orders
-     */
-    public List<OrderDTO> getOrders();
+
 }

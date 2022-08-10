@@ -64,8 +64,10 @@ public class ProductService implements IProductService{
     public void deleteProduct(Long id) {
         ProductModel dP = productRepository.findById(id).orElse(null);
         //productRepository.deleteById(id);
-        if(dP != null)
+        if(dP != null) {
             dP.setVisible(false);
+            productRepository.save(dP);
+        }
     }
 
     @Override
