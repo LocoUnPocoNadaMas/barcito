@@ -42,9 +42,9 @@ public class ProductController {
         return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
     }
 
-    @GetMapping("")
+    @GetMapping("/todos")
     @ResponseBody
-    public ResponseEntity<List<ProductDTO>> showAll(){
+    public ResponseEntity<List<ProductModel>> showAll(){
 
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
@@ -57,8 +57,7 @@ public class ProductController {
     
     @GetMapping("/buscar/{id}")
     public ResponseEntity<ProductDTO> getProduct(@PathVariable Long id) {
-        // Responde con el objeto o un error...
-        return new ResponseEntity<>(productService.getProduct(id), HttpStatus.OK);
+        return new ResponseEntity<>(productService.findProduct(id), HttpStatus.OK);
     }
 
     @PutMapping("/editar/{id}")
