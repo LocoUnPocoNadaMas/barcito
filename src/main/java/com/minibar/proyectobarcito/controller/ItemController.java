@@ -21,7 +21,7 @@ public class ItemController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/orden")
+    @GetMapping("/miorden/{id}")
     public ResponseEntity<Void> showOrder(@PathVariable Long id) {
         //if(clientService.addNewItem(clientDTO)) return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

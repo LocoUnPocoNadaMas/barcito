@@ -14,8 +14,6 @@ public interface ItemOrderRepository extends JpaRepository<ItemOrderModel, Long>
 
     public ItemOrderModel findFirstByAddedToOrderFalse(); //using
 
-    public List<ItemOrderModel> findByClientModel_ClientID(Long id); //delete
-
     public List<ItemOrderModel> findByClientModel_ClientIDAndAddedToOrderFalse(Long id); //using
 
 }
