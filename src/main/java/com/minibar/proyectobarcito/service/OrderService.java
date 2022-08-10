@@ -1,10 +1,8 @@
 package com.minibar.proyectobarcito.service;
 
 import com.minibar.proyectobarcito.dto.OrderDTO;
-import com.minibar.proyectobarcito.model.ClientModel;
 import com.minibar.proyectobarcito.model.ItemOrderModel;
 import com.minibar.proyectobarcito.model.OrderModel;
-import com.minibar.proyectobarcito.model.ProductModel;
 import com.minibar.proyectobarcito.repository.ItemOrderRepository;
 import com.minibar.proyectobarcito.repository.OrderRepository;
 
@@ -37,28 +35,35 @@ public class OrderService implements IOrderService {
         ItemOrderModel firstItem = new ItemOrderModel();
         OrderModel newOrder = new OrderModel();
         Double value = 0.0;
+        List <ItemOrderModel> itemOrderModelList = new ArrayList<>();
         // get first item waiting be added
         if (itemOrderRepository.findFirstByAddedToOrderFalse() != null) {
+
             firstItem = itemOrderRepository.findFirstByAddedToOrderFalse();
             ClientIdOfFirstItem = firstItem.getClientModel().getClientID();
-        }
 
-        // create a list of items, using the clientid
-        // of the first item, where addedtoorder=false
-        for (ItemOrderModel itemOrderModel : itemOrderRepository.findByClientModel_ClientIDAndAddedToOrderFalse(ClientIdOfFirstItem)
-        ) {
-            value += itemOrderModel.getProductModel().getPValue();
-            itemOrderModel.setAddedToOrder(true);
-        }
-        itemOrderRepository.saveAll(itemOrderRepository.findByClientModel_ClientIDAndAddedToOrderFalse(ClientIdOfFirstItem));
+            if(!(itemOrderRepository.findByClientModel_ClientIDAndAddedToOrderFalse(ClientIdOfFirstItem).isEmpty())) {
 
-        if (value > 0.0) {
+                itemOrderModelList = itemOrderRepository.findByClientModel_ClientIDAndAddedToOrderFalse(ClientIdOfFirstItem);
 
-            newOrder.setDateTime(LocalDate.now());
-            newOrder.setOValue(value);
-            newOrder.setPaid(false);
-            orderRepository.save(newOrder);
-            return true;
+                // create a list of items, using the clientid
+                // of the first item, where addedtoorder=false
+                for (ItemOrderModel itemOrderModel : itemOrderModelList) {
+                    value += itemOrderModel.getProductModel().getPValue();
+                    itemOrderModel.setAddedToOrder(true);
+                }
+                itemOrderRepository.saveAll(itemOrderModelList);
+
+                if (value > 0.0) {
+
+                    newOrder.setDateTime(LocalDate.now());
+                    newOrder.setOValue(value);
+                    newOrder.setPaid(false);
+                    newOrder.setClientModel(firstItem.getClientModel());
+                    orderRepository.save(newOrder);
+                    return true;
+                }
+            }
         }
         return false;
     }

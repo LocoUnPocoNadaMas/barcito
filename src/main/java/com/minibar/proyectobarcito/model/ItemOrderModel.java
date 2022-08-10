@@ -14,14 +14,6 @@ public class ItemOrderModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemID;
     private Boolean addedToOrder;
-    /*
-    @ManyToOne
-    @JoinColumn(
-            name = "orderID",
-            nullable = false, updatable = false // -nullable
-    )
-    @NotNull
-    private OrderModel orderModel;*/
     @ManyToOne
     @JoinColumn(
             name = "prodID",

@@ -37,6 +37,18 @@ public class OrderModel {
     // @Value("false") esta porquería no funciona, se setea desde el constructor?
     private Boolean paid;
 
+    @ManyToOne
+    @JoinColumn(
+            name = "clientID",
+            nullable = false, updatable = false // -nullable
+    )
+    @NotNull
+    private ClientModel clientModel;
+
     public OrderModel() {
+    }
+
+    public OrderModel(ClientModel clientModel) {
+        this.clientModel = clientModel;
     }
 }

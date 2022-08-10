@@ -30,9 +30,9 @@ public class ProductModel {
     private String name;
     @Size(max = 200)
     private String description;
-    @NotNull @Positive @Column(scale = 2) // se pasa por las bolas el scale......
+    @NotNull @Positive @Column(scale = 2) // se pasa por las bolas el scale...o yo no lo se usar.
     private Double pValue;
-    //@Column(columnDefinition = "boolean default true")
+    //@Column(columnDefinition = "boolean default true") // me crea un tipo de datos distinto al de hibernate...
     @NotNull
     private Boolean visible;
 
