@@ -32,7 +32,7 @@ public class ClientOrderService implements IClientOrderService {
     @Override
     public boolean addNewItem(ClientDTO clientDTO) {
         ClientModel cM = new ClientModel();
-        //cM = clientOrderRepository.findById(clientDTO.getClient_id()).orElse(null);
+        cM = clientRepository.findById(clientDTO.getClient_id()).orElse(null);
         ProductModel pM = new ProductModel();
         pM = productRepository.findById(clientDTO.getProd_id()).orElse(null);
         if (pM != null && cM != null) {

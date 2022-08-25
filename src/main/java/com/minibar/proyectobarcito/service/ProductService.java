@@ -47,7 +47,7 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public List<ProductDTO> getProducts() {
+    /*public List<ProductDTO> getProducts() {
 
         List<ProductDTO> productDTOList = new ArrayList<>();
         ProductDTO productDTO;
@@ -60,7 +60,12 @@ public class ProductService implements IProductService{
             productDTOList.add(productDTO);
         }
         return productDTOList;
+    }*/
+    public List<ProductModel> getProducts() {
+
+        return productRepository.findByVisibleTrue();
     }
+
 
     @Override
     public List<ProductModel> getAllProducts() {

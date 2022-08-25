@@ -24,7 +24,11 @@ public class ProductController {
     
     @GetMapping("")
     @ResponseBody
-    public ResponseEntity<List<ProductDTO>> showMenu(){
+    /*public ResponseEntity<List<ProductDTO>> showMenu(){
+
+        return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
+    }*/
+    public ResponseEntity<List<ProductModel>> showMenu(){
 
         return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
     }

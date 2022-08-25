@@ -18,7 +18,8 @@ public interface IProductService {
     
     public ProductDTO findProduct(Long id);
 
-    public List<ProductDTO> getProducts();
+    //public List<ProductDTO> getProducts();
+    public List<ProductModel> getProducts();
 
     public List<ProductModel> getAllProducts();
     
