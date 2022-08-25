@@ -10,10 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- *
- * @author Administrador
- */
 
 @Repository
 public interface ProductRepository extends JpaRepository<ProductModel, Long>{

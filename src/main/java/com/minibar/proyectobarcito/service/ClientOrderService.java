@@ -1,7 +1,6 @@
 package com.minibar.proyectobarcito.service;
 
 import com.minibar.proyectobarcito.dto.ClientDTO;
-import com.minibar.proyectobarcito.dto.ClientOrderDTO;
 import com.minibar.proyectobarcito.model.ClientModel;
 import com.minibar.proyectobarcito.model.ItemOrderModel;
 import com.minibar.proyectobarcito.model.OrderModel;
@@ -48,7 +47,6 @@ public class ClientOrderService implements IClientOrderService {
     @Override
     public List<OrderModel> getOrderItems(Long id) {
         return orderRepository.findByPaidFalseAndClientModel_ClientID(id);
-        //return null;
     }
 
 

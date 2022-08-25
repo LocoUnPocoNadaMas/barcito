@@ -14,11 +14,6 @@ import javax.validation.constraints.NotNull;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-/**
- *
- * @author Administrador
- */
-
 @Getter @Setter @Entity
 public class ProductModel {
     @Id

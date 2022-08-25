@@ -1,7 +1,6 @@
 package com.minibar.proyectobarcito.service;
 
 import com.minibar.proyectobarcito.dto.ClientDTO;
-import com.minibar.proyectobarcito.dto.ClientOrderDTO;
 import com.minibar.proyectobarcito.model.OrderModel;
 
 import java.util.List;
